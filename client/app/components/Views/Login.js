@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link ,Route} from 'react-router-dom';
+import { Link ,Redirect} from 'react-router-dom';
 import { setInStorage, getFromStorage } from "../../services/services";
+
 
 
 export default class LoginPage extends React.Component {
@@ -11,7 +12,8 @@ export default class LoginPage extends React.Component {
             username: '',
             password: '',
             submitted: false,
-            loginError:false
+            loginError:false,
+            loggedIn:false
         };
     }
 
@@ -44,9 +46,11 @@ export default class LoginPage extends React.Component {
             console.log(response)
             if(response.success){
                 this.setState({
-                    isLoading:false
+                    isLoading:false,
+                    loggedIn:true
                 });
                 setInStorage('test_token',response.token);
+
           }
             else{
                 this.setState({
@@ -59,7 +63,10 @@ export default class LoginPage extends React.Component {
 
     render() {
         const loggingIn = false
-        const { username, password, submitted } = this.state;
+        const { username, password, submitted ,loggedIn} = this.state;
+        if(loggedIn){
+            return <Redirect to="/"/>
+        }
         return (
             <div className = 'container'>
             <div className="col-md-6 col-md-offset-3">
@@ -86,8 +93,7 @@ export default class LoginPage extends React.Component {
                         }
                     </div>
                 </form>
-                <button className="btn btn-primary">Register
-                </button>
+                <Link to="/register">New ?? Register here!!</Link>
             </div>
             </div>
         );

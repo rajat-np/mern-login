@@ -16,7 +16,8 @@ import Login from './components/Views/Login';
 import Register  from "./components/Views/Register";
 
 import './styles/styles.scss';
-
+console.disableYellowBox = true;
+console.disableRedBox = true;
 render((
   <Router>
     <App>
